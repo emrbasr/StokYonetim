@@ -8,7 +8,7 @@ namespace StokYonetim.DAL.EFCore.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Stok> builder)
         {
-            builder.Property(p => p.StakAdi).HasMaxLength(50);
+            builder.Property(p => p.StokAdi).HasMaxLength(50);
             builder.Property(p => p.Birim).HasMaxLength(200);
 
             builder.HasKey(p => p.Id);

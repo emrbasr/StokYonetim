@@ -6,18 +6,19 @@ namespace StokYonetimi.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class KategoriController : ControllerBase
+    public class StokController : ControllerBase
     {
-        private readonly IKategoriDal kategoriDal;
+        private readonly IStokDal stokDal;
 
-        public KategoriController(IKategoriDal kategoriDal)
+        public StokController(IStokDal stokDal)
         {
-            this.kategoriDal = kategoriDal;
+            this.stokDal = stokDal;
         }
         [HttpGet]
+
         public async Task<IActionResult> GetAll()
         {
-            var result = await kategoriDal.GetAllAsync();
+            var result = await stokDal.GetAllAsync();
             if (result.Count == 0)
             {
                 return NotFound();
@@ -28,26 +29,28 @@ namespace StokYonetimi.WebAPI.Controllers
 
             }
         }
+
         [HttpGet("{id}")]
+
         public async Task<IActionResult> GetById(int id)
         {
-            Kategori kategori = await kategoriDal.GetByIdAsync(id);
-            if (kategori == null)
+            Stok stok = await stokDal.GetByIdAsync(id);
+            if (stok == null)
             {
-                return NotFound(id);
+                return NotFound();
             }
             else
             {
-                return Ok(kategori);
+                return Ok(stok);
             }
         }
 
-
         [HttpPost()]
-        public async Task<int> KategoriEkle(Kategori kategori)
+
+        public async Task<int> StokEkle(Stok stok)
         {
-            var sonuc = await kategoriDal.CreateAsync(kategori);
-            if (sonuc > 0)
+            var sonuc = await stokDal.CreateAsync(stok);
+            if (sonuc == 0)
             {
                 return StatusCodes.Status201Created;
             }
@@ -56,11 +59,13 @@ namespace StokYonetimi.WebAPI.Controllers
                 return StatusCodes.Status501NotImplemented;
             }
         }
+
         [HttpPut()]
-        public async Task<int> KategoriGuncelle(Kategori kategori)
+
+        public async Task<int> StokGuncelle(Stok stok)
         {
-            var sonuc = await kategoriDal.UpdateAsync(kategori);
-            if (sonuc > 0)
+            var sonuc = await stokDal.UpdateAsync(stok);
+            if (sonuc == 0)
             {
                 return StatusCodes.Status202Accepted;
             }
@@ -69,11 +74,13 @@ namespace StokYonetimi.WebAPI.Controllers
                 return StatusCodes.Status501NotImplemented;
             }
         }
+
         [HttpDelete()]
-        public async Task<int> KategoriSil(Kategori kategori)
+
+        public async Task<int> StokSil(Stok stok)
         {
-            var sonuc = await kategoriDal.DeleteAsync(kategori);
-            if (sonuc > 0)
+            var sonuc = await stokDal.DeleteAsync(stok);
+            if (sonuc == 0)
             {
                 return StatusCodes.Status202Accepted;
             }
@@ -82,5 +89,8 @@ namespace StokYonetimi.WebAPI.Controllers
                 return StatusCodes.Status204NoContent;
             }
         }
+
+
     }
 }
+

@@ -1,9 +1,9 @@
 ﻿using StokYonetim.Entites.Abstract;
 using System.Linq.Expressions;
 
-namespace StokYonetim.DAL.Abstract
+namespace StokYonetim.BL.Abstract
 {
-    public interface IRepositoryBase<T> where T : BaseEntity, new()
+    public interface IManagerBase<T> where T : BaseEntity
     {
         Task<int> CreateAsync(T entity);
         Task<int> DeleteAsync(T entity);
@@ -17,5 +17,6 @@ namespace StokYonetim.DAL.Abstract
 
         Task<IQueryable<T>> FindAllIncludeAsync(Expression<Func<T, bool>> filter = null
             , params Expression<Func<T, object>>[] input);
+
     }
 }
