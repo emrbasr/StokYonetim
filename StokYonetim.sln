@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StokYonetim.DAL", "StokYone
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StokYonetimi.WebAPI", "StokYonetimi.WebAPI\StokYonetimi.WebAPI.csproj", "{13EDE4AD-E9AB-4D0C-9E19-E6E48519E3CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StokYonetim.BL", "StokYonetim.BL\StokYonetim.BL.csproj", "{441F9E0A-C8A6-4422-8FD5-78147931035F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StokYonetim.BL", "StokYonetim.BL\StokYonetim.BL.csproj", "{441F9E0A-C8A6-4422-8FD5-78147931035F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StokYonetimMobile", "StokYonetimMobile\StokYonetimMobile.csproj", "{2390E573-B393-439E-AD96-AAED99A25FB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{441F9E0A-C8A6-4422-8FD5-78147931035F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{441F9E0A-C8A6-4422-8FD5-78147931035F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{441F9E0A-C8A6-4422-8FD5-78147931035F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2390E573-B393-439E-AD96-AAED99A25FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2390E573-B393-439E-AD96-AAED99A25FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2390E573-B393-439E-AD96-AAED99A25FB9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2390E573-B393-439E-AD96-AAED99A25FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2390E573-B393-439E-AD96-AAED99A25FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2390E573-B393-439E-AD96-AAED99A25FB9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

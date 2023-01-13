@@ -1,8 +1,9 @@
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using StokYonetim.DAL.Abstract;
-using StokYonetim.DAL.EFCore.Concrete;
+using Microsoft.IdentityModel.Tokens;
 using StokYonetim.DAL.EFCore.Context;
+using StokYonetimi.WebAPI.Extention;
+using System.Text;
 
 namespace StokYonetimi.WebAPI
 {
@@ -21,11 +22,32 @@ namespace StokYonetimi.WebAPI
             builder.Services.AddDbContext<StokYonetimDbContext>(
                  options => options.UseNpgsql(builder.Configuration.GetConnectionString("StokYonetim")));
 
-            builder.Services.AddScoped<IKategoriDal, KategoriDal>();
-            builder.Services.AddScoped<IStokDal, StokDal>();
-            builder.Services.AddScoped<IKs, StokDal>();
+            builder.Services.AddStokExtensions();
+            // builder.Services.AddValidatorsFromAssembly(Assembly.LoadFile(System.IO.Directory.GetCurrentDirectory() + "StokYonetim.BL.dll"));
+
 
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Token:Issuer"],
+                        ValidAudience = builder.Configuration["Token:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+                        ClockSkew = TimeSpan.Zero
+
+                    };
+                });
 
             var app = builder.Build();
 
@@ -40,7 +62,7 @@ namespace StokYonetimi.WebAPI
 
             app.UseAuthorization();
 
-
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             app.MapControllers();
 
             app.Run();

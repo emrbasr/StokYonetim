@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StokYonetim.DAL.Abstract;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using StokYonetim.BL.Abstract;
 using StokYonetim.Entites;
 
 namespace StokYonetimi.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class KategoriController : ControllerBase
     {
-        private readonly IKategoriDal kategoriDal;
+        private readonly IKategoriManager kategoriManager;
 
-        public KategoriController(IKategoriDal kategoriDal)
+        public KategoriController(IKategoriManager kategoriManager)
         {
-            this.kategoriDal = kategoriDal;
+            this.kategoriManager = kategoriManager;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await kategoriDal.GetAllAsync();
+            var result = await kategoriManager.GetAllAsync();
             if (result.Count == 0)
             {
                 return NotFound();
@@ -31,7 +33,7 @@ namespace StokYonetimi.WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            Kategori kategori = await kategoriDal.GetByIdAsync(id);
+            Kategori kategori = await kategoriManager.GetByIdAsync(id);
             if (kategori == null)
             {
                 return NotFound(id);
@@ -46,7 +48,7 @@ namespace StokYonetimi.WebAPI.Controllers
         [HttpPost()]
         public async Task<int> KategoriEkle(Kategori kategori)
         {
-            var sonuc = await kategoriDal.CreateAsync(kategori);
+            var sonuc = await kategoriManager.CreateAsync(kategori);
             if (sonuc > 0)
             {
                 return StatusCodes.Status201Created;
@@ -59,7 +61,7 @@ namespace StokYonetimi.WebAPI.Controllers
         [HttpPut()]
         public async Task<int> KategoriGuncelle(Kategori kategori)
         {
-            var sonuc = await kategoriDal.UpdateAsync(kategori);
+            var sonuc = await kategoriManager.UpdateAsync(kategori);
             if (sonuc > 0)
             {
                 return StatusCodes.Status202Accepted;
@@ -72,7 +74,7 @@ namespace StokYonetimi.WebAPI.Controllers
         [HttpDelete()]
         public async Task<int> KategoriSil(Kategori kategori)
         {
-            var sonuc = await kategoriDal.DeleteAsync(kategori);
+            var sonuc = await kategoriManager.DeleteAsync(kategori);
             if (sonuc > 0)
             {
                 return StatusCodes.Status202Accepted;
